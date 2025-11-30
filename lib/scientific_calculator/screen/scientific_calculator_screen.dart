@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project/core/widgets/custom_button.dart';
@@ -12,6 +11,11 @@ class ScientificCalculatorScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(calculatorProvider);
+
+    // Daftar tombol ilmiah
+    final List<String> scientificButtons = [
+      'sin', 'cos', 'tan', '√', 'x²', 'xʸ', 'π', 'e', 'log', 'ln', '!', '(', ')'
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -67,25 +71,24 @@ class ScientificCalculatorScreen extends ConsumerWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
 
-            // Scientific Keypad (Baris Fungsi) - DIPERBAIKI
-            Expanded(
-              flex: 1,
-              child: ListView.builder(
+            // 🔥 Scientific Keypad - FINAL VERSION
+            SizedBox(
+              height: 60,
+              child: ListView(
                 scrollDirection: Axis.horizontal,
-                itemCount: _scientificButtons.length,
-                itemBuilder: (context, index) {
-                  final button = _scientificButtons[index];
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                children: scientificButtons.map((label) {
                   return Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.only(right: 6.0),
                     child: CustomButton(
-                      text: button.label,
+                      text: label,
                       color: Colors.blueGrey,
                       textColor: Colors.white,
                       onPressed: () {
                         String value;
-                        switch (button.label) {
+                        switch (label) {
                           case '√':
                             value = '√(';
                             break;
@@ -105,15 +108,16 @@ class ScientificCalculatorScreen extends ConsumerWidget {
                             value = '!';
                             break;
                           default:
-                            value = '${button.label}(';
+                            value = '$label(';
                         }
                         ref.read(calculatorProvider.notifier).input(value);
                       },
                     ),
                   );
-                },
+                }).toList(),
               ),
             ),
+            const SizedBox(height: 12),
 
             // Basic Keypad
             Expanded(
@@ -186,25 +190,4 @@ class ScientificCalculatorScreen extends ConsumerWidget {
       ),
     );
   }
-}
-
-final List<_SciButton> _scientificButtons = [
-  _SciButton('sin'),
-  _SciButton('cos'),
-  _SciButton('tan'),
-  _SciButton('√'),
-  _SciButton('x²'),
-  _SciButton('xʸ'),
-  _SciButton('π'),
-  _SciButton('e'),
-  _SciButton('log'),
-  _SciButton('ln'),
-  _SciButton('!'),
-  _SciButton('('),
-  _SciButton(')'),
-];
-
-class _SciButton {
-  final String label;
-  const _SciButton(this.label);
 }

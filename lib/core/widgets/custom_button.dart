@@ -1,4 +1,4 @@
-
+// lib/core/widgets/custom_button.dart
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -6,8 +6,6 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Color? color;
   final Color? textColor;
-  final bool isDoubleWidth;
-  final bool isDoubleHeight;
 
   const CustomButton({
     super.key,
@@ -15,8 +13,6 @@ class CustomButton extends StatelessWidget {
     required this.onPressed,
     this.color,
     this.textColor,
-    this.isDoubleWidth = false,
-    this.isDoubleHeight = false,
   });
 
   @override
@@ -25,16 +21,15 @@ class CustomButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         alignment: Alignment.center,
-        width: isDoubleWidth ? null : double.infinity,
-        height: isDoubleHeight ? null : double.infinity,
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: color ?? Theme.of(context).colorScheme.surfaceVariant,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: textColor ?? Theme.of(context).colorScheme.onSurface,
           ),

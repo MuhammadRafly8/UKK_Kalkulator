@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project/features/basic_calculator/screen/basic_calculator_screen.dart';
 import 'package:project/shared/providers/thame_provider.dart';
-
+import 'package:project/shared/providers/voice_provider.dart';
 void main() {
   runApp(
     const ProviderScope(
